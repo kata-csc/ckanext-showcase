@@ -1,5 +1,6 @@
 import logging
 
+from ckan.logic.action.create import package_create
 import ckan.lib.uploader as uploader
 import ckan.plugins.toolkit as toolkit
 from ckan.logic.converters import convert_user_name_or_id_to_id
@@ -37,7 +38,8 @@ def showcase_create(context, data_dict):
 
     upload.upload(uploader.get_max_image_size())
 
-    pkg = toolkit.get_action('package_create')(context, data_dict)
+    pkg = package_create(context, data_dict)
+    #pkg = toolkit.get_action('package_create')(context, data_dict)
 
     return pkg
 

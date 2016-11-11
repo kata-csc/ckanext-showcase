@@ -1,5 +1,6 @@
 import logging
 
+from ckan.logic.action.update import package_update
 import ckan.lib.uploader as uploader
 import ckan.plugins.toolkit as toolkit
 
@@ -22,6 +23,7 @@ def showcase_update(context, data_dict):
 
     upload.upload(uploader.get_max_image_size())
 
-    pkg = toolkit.get_action('package_update')(context, data_dict)
+    pkg = package_update(context, data_dict)
+    #pkg = toolkit.get_action('package_update')(context, data_dict)
 
     return pkg

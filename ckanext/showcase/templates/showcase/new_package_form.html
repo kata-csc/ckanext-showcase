@@ -21,7 +21,7 @@
         {% set domain = domain|replace("http://", "")|replace("https://", "") %}
         {% set attrs = {'data-module': 'slug-preview-slug', 'data-module-prefix': domain, 'data-module-placeholder': '<showcase>'} %}
 
-        {{ form.prepend('name', id='field-name', label=_('URL'), prepend=prefix, placeholder=_('eg. my-showcase'), value=data.name, error=errors.name, attrs=attrs, is_required=true) }}
+        {{ form.prepend('name', id='field-name', label=_('URL'), prepend=prefix, placeholder=_('eg. my-showcase'), value=data.name, error=errors.name, attrs=attrs) }}
       {% endblock %}
 
       {% block package_basic_fields_description %}
@@ -62,7 +62,7 @@
       {% block save_button %}
         <button class="btn btn-primary" type="submit" name="save">{% block save_button_text %}{% if form_style != 'edit' %}{{ _('Create Showcase') }}{% else %}{{ _('Update Showcase') }}{% endif %}{% endblock %}</button>
       {% endblock %}
-      {{ form.required_message() }}
+      {#{ form.required_message() }#}
     </div>
   {% endblock %}
 </form>
