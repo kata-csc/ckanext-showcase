@@ -252,11 +252,11 @@ msgstr "Lisää kokoelmaan"
 
 #: ckanext/showcase/templates/package/dataset_showcase_list.html:20
 msgid "Showcases featuring {}"
-msgstr ""
+msgstr "Aineistoon {} liitetyt kokoelmat"
 
 #: ckanext/showcase/templates/package/dataset_showcase_list.html:26
 msgid "There are no showcases that feature this dataset"
-msgstr ""
+msgstr "Tätä aineistoa ei ole liitetty kokoelmaan"
 
 #: ckanext/showcase/templates/package/read_base.html:6
 msgid "Activity Stream"
@@ -441,7 +441,7 @@ msgstr "Vedos"
 #: ckanext/showcase/templates/showcase/read.html:78
 #: ckanext/showcase/templates/showcase/snippets/showcase_info.html:27
 msgid "Launch website"
-msgstr "Avaa web-sivusto"
+msgstr "Avaa sivusto"
 
 #: ckanext/showcase/templates/showcase/search.html:13
 msgid "Add Showcase"
@@ -478,7 +478,7 @@ msgstr "Julkaissut"
 
 #: ckanext/showcase/templates/showcase/snippets/showcase_info.html:37
 msgid "Datasets in Showcase"
-msgstr "Aineistoa kokoelmassa"
+msgstr "Kokoelman aineistot"
 
 #: ckanext/showcase/templates/showcase/snippets/showcase_info.html:47
 msgid "There are no Datasets in this Showcase"
