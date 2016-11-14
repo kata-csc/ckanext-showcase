@@ -29,3 +29,11 @@ def get_site_statistics():
         tk.get_action('organization_list')({}, {}))
 
     return stats
+
+def get_package_showcase_count(package_id):
+    from ckanext.showcase.model import ShowcasePackageAssociation
+    from ckan.model.meta import Session
+    from sqlalchemy import func
+
+    return Session.query(func.count(ShowcasePackageAssociation.showcase_id)). \
+        filter_by(package_id=package_id).scalar()
