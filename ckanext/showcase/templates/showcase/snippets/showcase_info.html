@@ -39,8 +39,8 @@ Example:
         <ul class="nav nav-simple">
         {% for package in showcase_pkgs %}
           {% set truncate_title = truncate_title or 80 %}
-          {% set title = package.title or package.name %}
-          <li class="nav-item">{{ h.link_to(h.truncate(title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }}</li>
+          {% set translated_title = h.get_translation(c.pkg_dict.title) or c.pkg_dict.name %}
+          <li class="nav-item">{{ h.link_to(h.truncate(translated_title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }}</li>
         {% endfor %}
         </ul>
       {% else %}
