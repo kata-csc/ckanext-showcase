@@ -117,6 +117,7 @@
                     {% set truncate = truncate or 180 %}
                     {% set truncate_title = truncate_title or 80 %}
                     {% set title = package.title or package.name %}
+                    {% set translated_title = h.get_translation(package.title) or package.name %}
                     {% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
                     <tr>
                       <td>
@@ -124,10 +125,10 @@
                       </td>
                       <td class="context">
                         <h3 class="dataset-heading">
-                          {{ h.link_to(h.truncate(title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }}
+                          {{ h.link_to(h.truncate(translated_title, truncate_title), h.url_for(controller='package', action='read', id=package.name)) }}
                         </h3>
                         {% if notes %}
-                          <p>{{ notes|urlize }}</p>
+                          <p>{{ h.get_translation(notes) | urlize }}</p>
                         {% endif %}
                       </td>
                     </tr>
