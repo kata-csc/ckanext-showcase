@@ -66,13 +66,47 @@ class ShowcaseController(PackageController):
                    'pending': True}
 
         try:
-            check_access('ckanext_showcase_update', context)
+            check_access('ckanext_showcase_update', context, {"id": id})
         except NotAuthorized:
             abort(401, _('User not authorized to edit {showcase_id}').format(
                 showcase_id=id))
 
-        return super(ShowcaseController, self).edit(
-            id, data=data, errors=errors, error_summary=error_summary)
+        # Note! edit() is copied and modified from CKAN's package.py
+        # to bypass CKAN's check_access for package_edit, which would
+        # automatically fail if showcases have datasets from multiple users.
+        # see showcase author's comments in new().
+
+        # On POST request, save the form data
+        if context['save'] and not data:
+            return self._save_edit(id, context, package_type='showcase')
+
+        # Otherwise, render the edit form
+
+        old_data = get_action('package_show')(context, {'id': id})
+        c.pkg_dict = old_data
+
+        # old data is from the db and data is passed if validation errors.
+        if data:
+            old_data.update(data)
+        data = old_data
+
+        if data and not data.get('tag_string'):
+            data['tag_string'] = ', '.join(h.dict_list_reduce(
+                c.pkg_dict.get('tags', {}), 'name'))
+
+        errors = errors or {}
+        c.errors_json = h.json.dumps(errors)
+
+        form_vars = {'data': data, 'errors': errors,
+                     'error_summary': error_summary, 'action': 'edit',
+                     'dataset_type': 'showcase', 'stage': 'active'
+                     }
+
+        return render('showcase/edit.html',
+                      extra_vars={'form_vars': form_vars,
+                                  'form_snippet': 'showcase/new_package_form.html',
+                                  'dataset_type': 'showcase'})
+
 
     def _guess_package_type(self, expecting_name=False):
         """Showcase packages are always DATASET_TYPE_NAME."""
@@ -262,7 +296,7 @@ class ShowcaseController(PackageController):
         data_dict = {'id': id}
 
         try:
-            check_access('ckanext_showcase_update', context)
+            check_access('ckanext_showcase_update', context, data_dict)
         except NotAuthorized:
             abort(401, _('User not authorized to edit {showcase_id}').format(
                 showcase_id=id))

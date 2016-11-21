@@ -15,29 +15,49 @@ def _is_showcase_admin(context):
     userobj = model.User.get(user)
     return ShowcaseAdmin.is_user_showcase_admin(userobj)
 
+def _is_showcase_owner(context, data_dict):
+    '''
+    Determines whether user has created the showcase (i.e. is the owner)
+    '''
+
+    if not data_dict:
+        return False
+
+    user = context.get('user', None)
+    userobj = model.User.get(user)
+    pkg_id = data_dict.get('id', None) or data_dict.get('showcase_id', '')
+    pkg_obj = model.Package.get(pkg_id)
+
+    if not pkg_obj:
+        return False
+
+    if pkg_obj.creator_user_id == userobj.id:
+        return True
+
+    return False
 
 def create(context, data_dict):
     '''Create a Showcase.
 
-       Only sysadmin or users listed as Showcase Admins can create a Showcase.
+       Any user (who is logged in) can create a showcase
     '''
-    return {'success': _is_showcase_admin(context)}
+    return {'success': True}
 
 
 def delete(context, data_dict):
     '''Delete a Showcase.
 
-       Only sysadmin or users listed as Showcase Admins can delete a Showcase.
+       Only showcase owner can delete a showcase.
     '''
-    return {'success': _is_showcase_admin(context)}
+    return {'success': _is_showcase_owner(context, data_dict)}
 
 
 def update(context, data_dict):
     '''Update a Showcase.
 
-       Only sysadmin or users listed as Showcase Admins can update a Showcase.
+       Only a showcase owner can edit a showcase.
     '''
-    return {'success': _is_showcase_admin(context)}
+    return {'success': _is_showcase_owner(context, data_dict)}
 
 
 @toolkit.auth_allow_anonymous_access
@@ -55,19 +75,17 @@ def list(context, data_dict):
 def package_association_create(context, data_dict):
     '''Create a package showcase association.
 
-       Only sysadmins or user listed as Showcase Admins can create a
-       package/showcase association.
+       Only showcase owner can add packages to the showcase
     '''
-    return {'success': _is_showcase_admin(context)}
+    return {'success': _is_showcase_owner(context, data_dict)}
 
 
 def package_association_delete(context, data_dict):
     '''Delete a package showcase association.
 
-       Only sysadmins or user listed as Showcase Admins can delete a
-       package/showcase association.
+       Only showcase owner can add packages to the showcase
     '''
-    return {'success': _is_showcase_admin(context)}
+    return {'success': _is_showcase_owner(context, data_dict)}
 
 
 @toolkit.auth_allow_anonymous_access
