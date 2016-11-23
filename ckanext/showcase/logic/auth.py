@@ -49,7 +49,7 @@ def delete(context, data_dict):
 
        Only showcase owner can delete a showcase.
     '''
-    return {'success': _is_showcase_owner(context, data_dict)}
+    return {'success': _is_showcase_owner(context, data_dict) or _is_showcase_admin(context)}
 
 
 def update(context, data_dict):
@@ -57,7 +57,7 @@ def update(context, data_dict):
 
        Only a showcase owner can edit a showcase.
     '''
-    return {'success': _is_showcase_owner(context, data_dict)}
+    return {'success': _is_showcase_owner(context, data_dict) or _is_showcase_admin(context)}
 
 
 @toolkit.auth_allow_anonymous_access
@@ -77,7 +77,7 @@ def package_association_create(context, data_dict):
 
        Only showcase owner can add packages to the showcase
     '''
-    return {'success': _is_showcase_owner(context, data_dict)}
+    return {'success': _is_showcase_owner(context, data_dict) or _is_showcase_admin(context)}
 
 
 def package_association_delete(context, data_dict):
@@ -85,7 +85,7 @@ def package_association_delete(context, data_dict):
 
        Only showcase owner can add packages to the showcase
     '''
-    return {'success': _is_showcase_owner(context, data_dict)}
+    return {'success': _is_showcase_owner(context, data_dict) or _is_showcase_admin(context)}
 
 
 @toolkit.auth_allow_anonymous_access
