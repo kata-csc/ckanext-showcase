@@ -12,6 +12,9 @@ try:
 except ImportError:  # for ckan <= 2.3
     import ckan.new_tests.helpers as helpers
 
+import ckanext.showcase.tests.factories as fac
+factories.Dataset = fac.Dataset
+
 from ckanext.showcase.tests import ShowcaseFunctionalTestBase
 
 

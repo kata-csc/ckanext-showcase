@@ -49,7 +49,7 @@ class TestShowcaseIndex(ShowcaseFunctionalTestBase):
         factories.Dataset(type='showcase', name='my-showcase')
 
         response = app.get("/showcase", status=200)
-        response.mustcontain("1 showcase found")
+        response.mustcontain("1 dataset found")
         response.mustcontain("my-showcase")
 
 
@@ -137,18 +137,17 @@ class TestDatasetView(ShowcaseFunctionalTestBase):
 
     '''Plugin adds a new showcases view for datasets.'''
 
-    def test_dataset_read_has_showcases_tab(self):
-        '''
-        Dataset view page has a new Showcases tab linked to the correct place.
-        '''
-        app = self._get_test_app()
-        dataset = factories.Dataset(name='my-dataset')
+    # Etsin: tabs are not used in Etsin template
+    # def test_dataset_read_has_showcases_tab(self):
+    #     '''
+    #     Dataset view page has a new Showcases tab linked to the correct place.
+    #     '''
+    #     app = self._get_test_app()
+    #     dataset = factories.Dataset(name='my-dataset')
 
-        response = app.get(
-            url=url_for(controller='package', action='read', id=dataset['id'])
-        )
-        # response contains link to dataset's showcase list
-        nosetools.assert_true('/dataset/showcases/{0}'.format(dataset['name']) in response)
+    #     response = app.get(url='/dataset/my-dataset')
+    #     # response contains link to dataset's showcase list
+    #     nosetools.assert_true('/dataset/showcases/{0}'.format(dataset['name']) in response)
 
     def test_dataset_showcase_page_lists_showcases_no_associations(self):
         '''
@@ -280,7 +279,7 @@ class TestDatasetView(ShowcaseFunctionalTestBase):
         )
 
         # Submit the remove form.
-        form = response.forms[1]
+        form = response.forms[0]
         nosetools.assert_equal(form['remove_showcase_id'].value, showcase_one['id'])
         showcase_remove_response = submit_and_follow(app, form, env)
 

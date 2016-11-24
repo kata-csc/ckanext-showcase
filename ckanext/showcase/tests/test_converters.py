@@ -7,6 +7,9 @@ try:
 except ImportError:  # for ckan <= 2.3
     import ckan.new_tests.factories as factories
 
+import ckanext.showcase.tests.factories as fac
+factories.Dataset = fac.Dataset
+
 try:
     import ckan.tests.helpers as helpers
 except ImportError:  # for ckan <= 2.3

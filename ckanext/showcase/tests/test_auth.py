@@ -48,7 +48,7 @@ class TestShowcaseAuthIndex(ShowcaseFunctionalTestBase):
 
     def test_auth_logged_in_user_cant_see_add_showcase_button(self):
         '''
-        A logged in user can't see the Add Showcase button on the showcase
+        A logged in user can see the Add Showcase button on the showcase
         index page.
         '''
         app = self._get_test_app()
@@ -71,8 +71,9 @@ class TestShowcaseAuthIndex(ShowcaseFunctionalTestBase):
         response = app.get("/showcase", status=200,
                            extra_environ={'REMOTE_USER': str(user['name'])})
 
+        # Etsin: There is no showcase button block in /showcase template
         # test for new showcase link in response
-        response.mustcontain("/showcase/new")
+        response.mustcontain(no="/showcase/new")
 
 
 class TestShowcaseAuthDetails(ShowcaseFunctionalTestBase):
@@ -203,11 +204,11 @@ class TestShowcaseAuthCreate(ShowcaseFunctionalTestBase):
 
     def test_auth_logged_in_user_cant_view_create_showcase_page(self):
         '''
-        A logged in user can't access the create showcase page.
+        A logged in user can access the create showcase page.
         '''
         app = self._get_test_app()
         user = factories.User()
-        app.get("/showcase/new", status=401,
+        app.get("/showcase/new", status=200,
                 extra_environ={'REMOTE_USER': str(user['name'])})
 
     def test_auth_sysadmin_can_view_create_showcase_page(self):
@@ -690,7 +691,7 @@ class TestShowcaseAuthManageShowcaseAdmins(ShowcaseFunctionalTestBase):
         page.
         '''
         app = self._get_test_app()
-        app.get("/showcase/new", status=302)
+        app.get("/ckan-admin/showcase_admins", status=302)
 
     def test_auth_logged_in_user_cant_view_showcase_admin_manage_page(self):
         '''
@@ -698,7 +699,7 @@ class TestShowcaseAuthManageShowcaseAdmins(ShowcaseFunctionalTestBase):
         '''
         app = self._get_test_app()
         user = factories.User()
-        app.get("/showcase/new", status=401,
+        app.get("/ckan-admin/showcase_admins", status=401,
                 extra_environ={'REMOTE_USER': str(user['name'])})
 
     def test_auth_sysadmin_can_view_showcase_admin_manage_page(self):
@@ -707,5 +708,5 @@ class TestShowcaseAuthManageShowcaseAdmins(ShowcaseFunctionalTestBase):
         '''
         app = self._get_test_app()
         user = factories.Sysadmin()
-        app.get("/showcase/new", status=200,
+        app.get("/ckan-admin/showcase_admins", status=200,
                 extra_environ={'REMOTE_USER': str(user['name'])})
