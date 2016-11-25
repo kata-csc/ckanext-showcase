@@ -78,6 +78,10 @@
       <p><a class="btn btn-primary ckanext-showcase-launch" href="{{ pkg.url }}" target="_blank"><i class="icon-external-link"></i> {{ _('Launch website') }}</a></p>
     {% endif %}
 
+    {% if pkg.showcase_type %}
+      <p>Showcase type: {{ pkg.showcase_type }}</p>
+    {% endif %}
+
   {% endblock %}
 
   {% block package_tags %}

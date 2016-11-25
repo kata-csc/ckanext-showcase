@@ -26,17 +26,19 @@ show_remove    - If True, show the remove button to remove showcase/dataset asso
     {% block notes %}
       {% if notes %}
         <div>{{ notes|urlize }}</div>
-      {% else %}
-        <p class="empty">{{ _("This showcase has no description") }}</p>
       {% endif %}
+      {% if package.showcase_type %}
+        <div>Type: {{ package.showcase_type }}</div>
+      {% endif %}
+
     {% endblock %}
-    {% block datasets %}
+    {#% block datasets %}
       {% if package.num_datasets %}
         <strong class="count">{{ ungettext('{num} Dataset', '{num} Datasets', package.num_datasets).format(num=package.num_datasets) }}</strong>
       {% elif package.num_datasets == 0 %}
         <span class="count">{{ _('0 Datasets') }}</span>
       {% endif %}
-    {% endblock %}
+    {% endblock %#}
     {% block link %}
       <a href="{{ h.url_for(controller='ckanext.showcase.controller:ShowcaseController', action='read', id=package.name) }}" title="{{ _('View {showcase_title}').format(showcase_title=package.title) }}" class="media-view">
         <span>{{ _('View {showcase_title}').format(showcase_title=package.title) }}</span>

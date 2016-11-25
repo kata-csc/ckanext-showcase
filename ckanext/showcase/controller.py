@@ -55,6 +55,8 @@ class ShowcaseController(PackageController):
         except NotAuthorized:
             abort(401, _('Unauthorized to create a package'))
 
+        c.types = self._type_options()
+
         return super(ShowcaseController, self).new(data=data, errors=errors,
                                                    error_summary=error_summary)
 
@@ -101,6 +103,8 @@ class ShowcaseController(PackageController):
                      'error_summary': error_summary, 'action': 'edit',
                      'dataset_type': 'showcase', 'stage': 'active'
                      }
+
+        c.types = self._type_options()
 
         return render('showcase/edit.html',
                       extra_vars={'form_vars': form_vars,
@@ -629,3 +633,16 @@ class ShowcaseController(PackageController):
         c.user_dict = get_action('user_show')(data_dict={'id': user_id})
         c.user_id = user_id
         return render('admin/confirm_remove_showcase_admin.html')
+
+    def _type_options(self):
+        '''
+        A tuple of options for the different showcase types for use in
+        the form.select() template macro.
+        '''
+        return ({"text": _("API"), "value": "api"},
+                {"text": _("Application"), "value": "application"},
+                {"text": _("Idea"), "value": "idea"},
+                {"text": _("News Article"), "value": "news_article"},
+                {"text": _("Paper"), "value": "paper"},
+                {"text": _("Post"), "value": "post"},
+                {"text": _("Visualization"), "value": "visualization"})

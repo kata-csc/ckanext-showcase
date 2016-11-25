@@ -18,6 +18,7 @@
 
   <h2>{% block page_heading %}
     {{ _('Showcases featuring {}').format(dataset_name) }}
+    {% link_for _('Create a new Showcase'), controller='ckanext.showcase.controller:ShowcaseController', action='new', class_='btn btn-primary' %}
     {% endblock %}</h2>
   {% block showcase_list %}
     {% if c.showcase_list %}
