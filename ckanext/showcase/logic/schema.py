@@ -101,7 +101,9 @@ def showcase_show_schema():
     schema['creator_user_id'] = []
     schema['num_tags'] = []
     schema['revision_id'] = []
-    schema['tracking_summary'] = []
+
+    # Peter: remove tracking_summary, since it causes an error on API calls
+    # schema['tracking_summary'] = []
 
     schema.update({
         'image_url': [toolkit.get_converter('convert_from_extras'),
