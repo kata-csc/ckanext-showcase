@@ -246,11 +246,17 @@ class ShowcaseController(PackageController):
 
         try:
             if request.method == 'POST':
+                associated_pkg = tk.get_action('ckanext_showcase_package_list')(
+                    context, {'showcase_id': id})
                 get_action('ckanext_showcase_delete')(context, {'id': id})
                 h.flash_notice(_('Showcase has been deleted.'))
-                tk.redirect_to(
-                    controller='ckanext.showcase.controller:ShowcaseController',
-                    action='search')
+                if associated_pkg:
+                    tk.redirect_to(
+                        controller='ckanext.showcase.controller:ShowcaseController',
+                        action='dataset_showcase_list', id=associated_pkg[0].get('id'))
+                else:  # if the deleted showcase has no associated packages
+                    tk.redirect_to(controller='package', action='search')
+
             c.pkg_dict = get_action('package_show')(context, {'id': id})
         except NotAuthorized:
             abort(401, _('Unauthorized to delete showcase'))
