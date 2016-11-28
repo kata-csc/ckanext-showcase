@@ -210,7 +210,7 @@ class ShowcaseController(PackageController):
         context = {'model': model, 'session': model.Session,
                    'user': c.user or c.author, 'for_view': True,
                    'auth_user_obj': c.userobj}
-        data_dict = {'id': id, 'type': 'showcase'}
+        data_dict = {'id': id}
 
         # check if showcase exists
         try:
