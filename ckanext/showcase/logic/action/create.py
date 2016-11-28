@@ -73,6 +73,10 @@ def showcase_package_association_create(context, data_dict):
         raise toolkit.ValidationError("ShowcasePackageAssociation with package_id '{0}' and showcase_id '{1}' already exists.".format(package_id, showcase_id),
                                       error_summary=u"The dataset, {0}, is already in the showcase".format(convert_package_name_or_id_to_title_or_name(package_id, context)))
 
+    # Etsin: raise Validationerror if the showcase is already associated with a package
+    if len(ShowcasePackageAssociation.get_package_ids_for_showcase(showcase_id=showcase_id)) >= 1:
+        raise toolkit.ValidationError("Only one package association can be created for a showcase.")
+
     # create the association
     return ShowcasePackageAssociation.create(package_id=package_id,
                                              showcase_id=showcase_id)
