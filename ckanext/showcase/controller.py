@@ -210,11 +210,13 @@ class ShowcaseController(PackageController):
         context = {'model': model, 'session': model.Session,
                    'user': c.user or c.author, 'for_view': True,
                    'auth_user_obj': c.userobj}
-        data_dict = {'id': id}
+        data_dict = {'id': id, 'type': 'showcase'}
 
         # check if showcase exists
         try:
             c.pkg_dict = get_action('package_show')(context, data_dict)
+            if c.pkg_dict.get('type') != 'showcase':  # allow only showcases
+                raise NotFound
         except NotFound:
             abort(404, _('Showcase not found'))
         except NotAuthorized:
