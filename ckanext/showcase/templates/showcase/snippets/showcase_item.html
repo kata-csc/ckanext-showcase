@@ -44,9 +44,6 @@ show_remove    - If True, show the remove button to remove showcase/dataset asso
         <span>{{ _('View {showcase_title}').format(showcase_title=package.title) }}</span>
       </a>
     {% endblock %}
-    {% if show_remove %}
-      <form method="post"><input type="hidden" value="{{ package.id }}" name="remove_showcase_id" /><input value="{{ _('Remove') }}" type="submit" class="btn btn-danger btn-small media-edit" title="{{ _('Remove dataset from this showcase') }}"/></form>
-    {% endif %}
   {% endblock %}
 </li>
 {% endblock %}
