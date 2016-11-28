@@ -60,6 +60,40 @@ class ShowcaseController(PackageController):
         return super(ShowcaseController, self).new(data=data, errors=errors,
                                                    error_summary=error_summary)
 
+    def new_direct(self, package_id, data=None, errors=None, error_summary=None):
+        context = {'model': model, 'session': model.Session,
+           'user': c.user or c.author, 'auth_user_obj': c.userobj,
+           'save': 'save' in request.params}
+
+        # On POST request, create a new showcase and directly associate
+        # a dataset to it 
+        if context['save'] and not data:
+            data_dict = clean_dict(dict_fns.unflatten(
+            tuplize_dict(parse_params(request.POST))))
+
+            data_dict['type'] = 'showcase'
+
+            try:
+                pkg_dict = get_action('ckanext_showcase_create')(context, data_dict)
+
+                # Create a package association
+                get_action(
+                    'ckanext_showcase_package_association_create')(
+                        context, {'showcase_id': pkg_dict.get('id'),
+                                  'package_id': package_id})
+
+            except ValidationError as e:
+                data_dict['state'] = 'none'
+                return self.new(data_dict, e.error_dict, e.error_summary)
+
+            # redirect to showcase read
+            url = h.url_for(
+                controller='ckanext.showcase.controller:ShowcaseController',
+                action='read', id=pkg_dict.get('id'))
+            redirect(url)
+
+        return self.new(data, errors, error_summary)
+
     def edit(self, id, data=None, errors=None, error_summary=None):
         context = {'model': model, 'session': model.Session,
                    'user': c.user or c.author, 'auth_user_obj': c.userobj,
