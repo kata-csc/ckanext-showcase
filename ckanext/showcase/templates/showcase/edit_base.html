@@ -27,23 +27,6 @@
   <div class="primary {% block ckanext_showcase_edit_span %}span9{% endblock %}">
     {% block primary_content %}
       <article class="module">
-        {% block page_header %}
-          <header class="module-content page-header">
-            {% if self.content_action() | trim %}
-              <div class="content_action">
-                {% block content_action %}
-                  {% link_for _('View showcase'), controller='ckanext.showcase.controller:ShowcaseController', action='read', id=pkg.name, class_='btn', icon='eye-open' %}
-                {% endblock %}
-              </div>
-            {% endif %}
-            <ul class="nav nav-tabs">
-              {% block content_primary_nav %}
-                {{ h.build_nav_icon('ckanext_showcase_edit', _('Edit showcase'), id=pkg.name) }}
-                {{ h.build_nav_icon('ckanext_showcase_manage_datasets', _('Manage datasets'), id=pkg.name) }}
-              {% endblock %}
-            </ul>
-          </header>
-        {% endblock %}
         <div class="{% block ckanext_showcase_edit_module_content_class %}module-content{% endblock %}">
           {% if self.page_primary_action() | trim %}
             <div class="page_primary_action">

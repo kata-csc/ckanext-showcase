@@ -140,8 +140,8 @@ class ShowcasePlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
         # the names below based on the dataset.type ('dataset' is the default
         # type)
         with SubMapper(map, controller='ckanext.showcase.controller:ShowcaseController') as m:
-            m.connect('ckanext_showcase_index', '/showcase', action='search',
-                      highlight_actions='index search')
+            # m.connect('ckanext_showcase_index', '/showcase', action='search',
+            #           highlight_actions='index search')
             m.connect('ckanext_showcase_new', '/showcase/new', action='new')
             m.connect('ckanext_showcase_new_direct', '/showcase/new/{package_id}', action='new_direct')
             m.connect('ckanext_showcase_delete', '/showcase/delete/{id}',
@@ -150,9 +150,9 @@ class ShowcasePlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
                       ckan_icon='picture')
             m.connect('ckanext_showcase_edit', '/showcase/edit/{id}',
                       action='edit', ckan_icon='edit')
-            m.connect('ckanext_showcase_manage_datasets',
-                      '/showcase/manage_datasets/{id}',
-                      action="manage_datasets", ckan_icon="sitemap")
+            # m.connect('ckanext_showcase_manage_datasets',
+            #           '/showcase/manage_datasets/{id}',
+                      # action="manage_datasets", ckan_icon="sitemap")
             m.connect('dataset_showcase_list', '/dataset/showcases/{id}',
                       action='dataset_showcase_list', ckan_icon='picture')
             m.connect('ckanext_showcase_admins', '/ckan-admin/showcase_admins',
@@ -160,7 +160,7 @@ class ShowcasePlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
             m.connect('ckanext_showcase_admin_remove',
                       '/ckan-admin/showcase_admin_remove',
                       action='remove_showcase_admin')
-        map.redirect('/showcases', '/showcase')
+        # map.redirect('/showcases', '/showcase')
         map.redirect('/showcases/{url:.*}', '/showcase/{url}')
         return map
 
