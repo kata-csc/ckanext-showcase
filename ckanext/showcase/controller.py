@@ -89,7 +89,7 @@ class ShowcaseController(PackageController):
             # redirect to showcase read
             url = h.url_for(
                 controller='ckanext.showcase.controller:ShowcaseController',
-                action='read', id=pkg_dict.get('id'))
+                action='read', id=pkg_dict.get('name'))
             redirect(url)
 
         return self.new(data, errors, error_summary)
