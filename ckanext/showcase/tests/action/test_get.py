@@ -83,45 +83,18 @@ class TestShowcaseShow(ShowcaseFunctionalTestBase):
         helpers.call_action('ckanext_showcase_package_association_create',
                             context=context, package_id=package_one['id'],
                             showcase_id=my_showcase['id'])
-        helpers.call_action('ckanext_showcase_package_association_create',
-                            context=context, package_id=package_two['id'],
-                            showcase_id=my_showcase['id'])
+
+        # ValidationError: None - {'message': 'Only one package association can be created for a showcase.'}
+        # Etsin: creating another package association should throw a ValidationError
+        nosetools.assert_raises(toolkit.ValidationError, helpers.call_action,
+                                'ckanext_showcase_package_association_create',
+                                context=context, package_id=package_two['id'],
+                                showcase_id=my_showcase['id'])
 
         showcase_shown = helpers.call_action('ckanext_showcase_show', id=my_showcase['name'])
 
-        nosetools.assert_equal(showcase_shown['num_datasets'], 2)
-
-    def test_showcase_show_num_datasets_correct_only_count_active_datasets(self):
-        '''
-        num_datasets property has correct value when some previously
-        associated datasets have been datasets.
-        '''
-        sysadmin = factories.User(sysadmin=True)
-
-        my_showcase = factories.Dataset(type='showcase', name='my-showcase')
-        package_one = factories.Dataset()
-        package_two = factories.Dataset()
-        package_three = factories.Dataset()
-
-        context = {'user': sysadmin['name']}
-        # create the associations
-        helpers.call_action('ckanext_showcase_package_association_create',
-                            context=context, package_id=package_one['id'],
-                            showcase_id=my_showcase['id'])
-        helpers.call_action('ckanext_showcase_package_association_create',
-                            context=context, package_id=package_two['id'],
-                            showcase_id=my_showcase['id'])
-        helpers.call_action('ckanext_showcase_package_association_create',
-                            context=context, package_id=package_three['id'],
-                            showcase_id=my_showcase['id'])
-
-        # delete the first package
-        helpers.call_action('package_delete', context=context, id=package_one['id'])
-
-        showcase_shown = helpers.call_action('ckanext_showcase_show', id=my_showcase['name'])
-
-        # the num_datasets should only include active datasets
-        nosetools.assert_equal(showcase_shown['num_datasets'], 2)
+        # Etsin: you can only add one dataset, after that a ValidationError is thrown
+        nosetools.assert_equal(showcase_shown['num_datasets'], 1)
 
 
 class TestShowcaseList(ShowcaseFunctionalTestBase):
@@ -225,32 +198,6 @@ class TestShowcasePackageList(ShowcaseFunctionalTestBase):
         # The list item should have the correct name property
         nosetools.assert_equal(pkg_list[0]['name'], package['name'])
 
-    def test_showcase_package_list_showcase_has_two_packages(self):
-        '''
-        Calling ckanext_showcase_package_list with a showcase that has two
-        packages should return the packages.
-        '''
-        sysadmin = factories.User(sysadmin=True)
-
-        package_one = factories.Dataset()
-        package_two = factories.Dataset()
-        showcase_id = factories.Dataset(type='showcase')['id']
-        context = {'user': sysadmin['name']}
-        # create first association
-        helpers.call_action('ckanext_showcase_package_association_create',
-                            context=context, package_id=package_one['id'],
-                            showcase_id=showcase_id)
-        # create second association
-        helpers.call_action('ckanext_showcase_package_association_create',
-                            context=context, package_id=package_two['id'],
-                            showcase_id=showcase_id)
-
-        pkg_list = helpers.call_action('ckanext_showcase_package_list',
-                                       showcase_id=showcase_id)
-
-        # We've got two items in the pkg_list
-        nosetools.assert_equal(len(pkg_list), 2)
-
     def test_showcase_package_list_showcase_only_contains_active_datasets(self):
         '''
         Calling ckanext_showcase_package_list will only return active datasets
@@ -267,14 +214,6 @@ class TestShowcasePackageList(ShowcaseFunctionalTestBase):
         helpers.call_action('ckanext_showcase_package_association_create',
                             context=context, package_id=package_one['id'],
                             showcase_id=showcase_id)
-        # create second association
-        helpers.call_action('ckanext_showcase_package_association_create',
-                            context=context, package_id=package_two['id'],
-                            showcase_id=showcase_id)
-        # create third association
-        helpers.call_action('ckanext_showcase_package_association_create',
-                            context=context, package_id=package_three['id'],
-                            showcase_id=showcase_id)
 
         # delete the first package
         helpers.call_action('package_delete', context=context, id=package_one['id'])
@@ -282,12 +221,10 @@ class TestShowcasePackageList(ShowcaseFunctionalTestBase):
         pkg_list = helpers.call_action('ckanext_showcase_package_list',
                                        showcase_id=showcase_id)
 
-        # We've got two items in the pkg_list
-        nosetools.assert_equal(len(pkg_list), 2)
+        # We've got zero items (since one is associated, but deleted)
+        nosetools.assert_equal(len(pkg_list), 0)
 
         pkg_list_ids = [pkg['id'] for pkg in pkg_list]
-        nosetools.assert_true(package_two['id'] in pkg_list_ids)
-        nosetools.assert_true(package_three['id'] in pkg_list_ids)
         nosetools.assert_false(package_one['id'] in pkg_list_ids)
 
     def test_showcase_package_list_package_isnot_a_showcase(self):

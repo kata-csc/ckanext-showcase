@@ -323,56 +323,6 @@ class TestShowcaseAuthEdit(ShowcaseFunctionalTestBase):
         app.get('/showcase/edit/my-showcase', status=200,
                 extra_environ={'REMOTE_USER': str(user['name'])})
 
-    def test_auth_anon_user_cant_view_manage_datasets(self):
-        '''
-        An anon (not logged in) user can't access the showcase manage datasets page.
-        '''
-        app = self._get_test_app()
-
-        factories.Dataset(type='showcase', name='my-showcase')
-
-        app.get('/showcase/manage_datasets/my-showcase', status=302)
-
-    def test_auth_logged_in_user_cant_view_manage_datasets(self):
-        '''
-        A logged in user (not sysadmin) can't access the showcase manage datasets page.
-        '''
-        app = self._get_test_app()
-        user = factories.User()
-
-        factories.Dataset(type='showcase', name='my-showcase')
-
-        app.get('/showcase/manage_datasets/my-showcase', status=401,
-                extra_environ={'REMOTE_USER': str(user['name'])})
-
-    def test_auth_sysadmin_can_view_manage_datasets(self):
-        '''
-        A sysadmin can access the showcase manage datasets page.
-        '''
-        app = self._get_test_app()
-        user = factories.Sysadmin()
-
-        factories.Dataset(type='showcase', name='my-showcase')
-
-        app.get('/showcase/manage_datasets/my-showcase', status=200,
-                extra_environ={'REMOTE_USER': str(user['name'])})
-
-    def test_auth_showcase_admin_can_view_manage_datasets(self):
-        '''
-        A showcase admin can access the showcase manage datasets page.
-        '''
-        app = self._get_test_app()
-        user = factories.User()
-
-        # Make user a showcase admin
-        helpers.call_action('ckanext_showcase_admin_add', context={},
-                            username=user['name'])
-
-        factories.Dataset(type='showcase', name='my-showcase')
-
-        app.get('/showcase/manage_datasets/my-showcase', status=200,
-                extra_environ={'REMOTE_USER': str(user['name'])})
-
     def test_auth_anon_user_cant_view_delete_showcase_page(self):
         '''
         An anon (not logged in) user can't access the showcase delete page.
@@ -422,72 +372,6 @@ class TestShowcaseAuthEdit(ShowcaseFunctionalTestBase):
 
         app.get('/showcase/delete/my-showcase', status=200,
                 extra_environ={'REMOTE_USER': str(user['name'])})
-
-    def test_auth_anon_user_cant_view_addtoshowcase_dropdown_dataset_showcase_list(self):
-        '''
-        An anonymous user can't view the 'Add to showcase' dropdown selector
-        from a datasets showcase list page.
-        '''
-        app = self._get_test_app()
-
-        factories.Dataset(name='my-showcase', type='showcase')
-        factories.Dataset(name='my-dataset')
-
-        showcase_list_response = app.get('/dataset/showcases/my-dataset', status=200)
-
-        nosetools.assert_false('showcase-add' in showcase_list_response.forms)
-
-    def test_auth_normal_user_cant_view_addtoshowcase_dropdown_dataset_showcase_list(self):
-        '''
-        A normal (logged in) user can't view the 'Add to showcase' dropdown
-        selector from a datasets showcase list page.
-        '''
-        user = factories.User()
-        app = self._get_test_app()
-
-        factories.Dataset(name='my-showcase', type='showcase')
-        factories.Dataset(name='my-dataset')
-
-        showcase_list_response = app.get('/dataset/showcases/my-dataset', status=200,
-                                         extra_environ={'REMOTE_USER': str(user['name'])})
-
-        nosetools.assert_false('showcase-add' in showcase_list_response.forms)
-
-    def test_auth_sysadmin_can_view_addtoshowcase_dropdown_dataset_showcase_list(self):
-        '''
-        A sysadmin can view the 'Add to showcase' dropdown selector from a
-        datasets showcase list page.
-        '''
-        user = factories.Sysadmin()
-        app = self._get_test_app()
-
-        factories.Dataset(name='my-showcase', type='showcase')
-        factories.Dataset(name='my-dataset')
-
-        showcase_list_response = app.get('/dataset/showcases/my-dataset', status=200,
-                                         extra_environ={'REMOTE_USER': str(user['name'])})
-
-        nosetools.assert_true('showcase-add' in showcase_list_response.forms)
-
-    def test_auth_showcase_admin_can_view_addtoshowcase_dropdown_dataset_showcase_list(self):
-        '''
-        A showcase admin can view the 'Add to showcase' dropdown selector from
-        a datasets showcase list page.
-        '''
-        app = self._get_test_app()
-        user = factories.User()
-
-        # Make user a showcase admin
-        helpers.call_action('ckanext_showcase_admin_add', context={},
-                            username=user['name'])
-
-        factories.Dataset(name='my-showcase', type='showcase')
-        factories.Dataset(name='my-dataset')
-
-        showcase_list_response = app.get('/dataset/showcases/my-dataset', status=200,
-                                         extra_environ={'REMOTE_USER': str(user['name'])})
-
-        nosetools.assert_true('showcase-add' in showcase_list_response.forms)
 
 
 class TestShowcasePackageAssociationCreate(ShowcaseFunctionalTestBase):
