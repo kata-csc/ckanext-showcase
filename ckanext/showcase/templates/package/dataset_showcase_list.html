@@ -5,15 +5,25 @@
 {% block subtitle %}{{ _('Showcases') }} - {{ super() }}{% endblock %}
 
 {% block inner_content %}
-  <h2>{% block page_heading %}
-    {{ _('Showcases featuring {}').format(dataset_name) }}
-    {% link_for _('Create a new Showcase'), controller='ckanext.showcase.controller:ShowcaseController', action='new_direct', package_id=c.pkg_dict.id, class_='btn btn-primary' %}
-    {% endblock %}</h2>
+  <h2>
+  {% block page_heading %}
+    {{ _('Related Media for {}').format(dataset_name) }}</h2>
+  {% endblock %}
+  </h2>
   {% block showcase_list %}
     {% if c.showcase_list %}
+      <div class="related-item-list">
       {% snippet "showcase/snippets/showcase_list.html", packages=c.showcase_list, pkg_id=c.pkg_dict.name, show_remove=h.check_access('ckanext_showcase_update', c.pkg_dict) %}
     {% else %}
+      </div>
       <p class="empty">{{ _('There are no showcases that feature this dataset') }}</p>
     {% endif %}
   {% endblock %}
+
+  {% block form_actions %}
+    <div class="form-actions">
+    {% link_for _('Create a new Showcase'), controller='ckanext.showcase.controller:ShowcaseController', action='new_direct', package_id=c.pkg_dict.id, class_='btn btn-primary' %}
+    </div>
+  {% endblock %}
+
 {% endblock %}
