@@ -1,8 +1,26 @@
-{% ckan_extends %}
+{# {% ckan_extends %}
 
 {% block content_primary_nav %}
   {{ h.build_nav_icon('dataset_read', _('Dataset'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_groups', _('Groups'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_showcase_list', _('Showcases'), id=pkg.name) }}
+{% endblock %}
+ #}
+
+{% extends "page.html" %}
+
+{% block content %}
+
+  <div id="etsin-main">
+
+      {% block flash %}
+        {{ super() }}
+      {% endblock %}
+
+    {%- block inner_content %}
+
+    {% endblock -%}
+  </div>
+
 {% endblock %}

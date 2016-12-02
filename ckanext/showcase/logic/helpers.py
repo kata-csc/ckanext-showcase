@@ -1,6 +1,15 @@
 import ckan.lib.helpers as h
 from ckan.plugins import toolkit as tk
 
+SHOWCASE_TYPES = {
+    'api': 'API',
+    'application': 'Application',
+    'idea': 'Idea',
+    'post': 'Post',
+    'news_article': 'News Article',
+    'paper': 'Paper',
+    'visualization': 'Visualization'
+    }
 
 def facet_remove_field(key, value=None, replace=None):
     '''
@@ -37,3 +46,6 @@ def get_package_showcase_count(package_id):
 
     return Session.query(func.count(ShowcasePackageAssociation.showcase_id)). \
         filter_by(package_id=package_id).scalar()
+
+def resolve_link_type(type_name):
+    return SHOWCASE_TYPES.get(type_name, '')

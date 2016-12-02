@@ -1,98 +1,76 @@
-{% extends "page.html" %}
+{% extends "package/read_base.html" %}
 
 {% set pkg = c.pkg_dict %}
 {% set name = pkg.title or pkg.name %}
 
 {% block subtitle %}{{ pkg.title or pkg.name }} - {{ _('Showcases') }}{% endblock %}
 
-{% block styles %}
-  {{ super() }}
-  <link rel="stylesheet" href="{{ g.site_url }}/ckanext_showcase.css" />
-{% endblock %}
+{% block inner_content %}
+<div class="etsin-container">
+  <div class="container">
 
-{% block links -%}
-  {{ super() }}
-  <link rel="alternate" type="application/rdf+xml" href="{{ h.url_for(controller='ckanext.showcase.controller:ShowcaseController', action='read', id=pkg.id, format='rdf', qualified=True) }}"/>
-{% endblock -%}
+    <div class="row-fluid">
+      <h2 class="page-title">{{ name }}</h2>
+      <div class="organization-view-header">
 
-{% block head_extras -%}
-  {{ super() }}
-  {% set description = h.markdown_extract(pkg.notes, extract_length=200)|forceescape %}
-  <meta property="og:title" content="{{ h.dataset_display_name(pkg) }} - {{ g.site_title }}">
-  <meta property="og:description" content="{{ description }}">
-  <meta property="og:url" content="{{ h.full_current_url() }}">
-  {% if pkg.image_display_url %}
-     <meta property="og:image" content="{{ pkg.image_display_url }}">
-  {% endif %}
-{% endblock -%}
-
-{% block page_header %}
-{% endblock %}
-
-{% block pre_primary %}
-{% endblock %}
-
-{% block primary_content_inner %}
-  {% if h.check_access('ckanext_showcase_update', {'id':pkg.id }) %}
-    <div class="actions">
-    {% link_for _('Manage'), controller='ckanext.showcase.controller:ShowcaseController', action='edit', id=pkg.name, class_='btn', icon='wrench' %}
-    </div>
-  {% endif %}
-  {% block package_description %}
-    {% if pkg.private %}
-      <span class="dataset-private label label-inverse pull-right">
-        <i class="icon-lock"></i>
-        {{ _('Private') }}
-      </span>
-    {% endif %}
-    <h1>
-      {% block page_heading %}
-        {{ name }}
-        {% if pkg.state.startswith('draft') %}
-          [{{ _('Draft') }}]
-        {% endif %}
-      {% endblock %}
-    </h1>
-
-    {% if pkg.image_display_url %}
-      <p class="ckanext-showcase-image-container"><img src="{{ pkg.image_display_url }}" alt="{{ name }}" class="media-image ckanext-showcase-image"></p>
-    {% endif %}
-
-    {% block package_notes %}
-      {% if pkg.showcase_notes_formatted %}
-        <div class="notes embedded-content ckanext-showcase-notes">
-          {{ pkg.showcase_notes_formatted }}
+        <div class="actions-and-ratings">
+          <div class="button-container">
+            {% if h.check_access('ckanext_showcase_update', {'id':pkg.id }) %}
+              <div class="btn-group">
+                {% link_for _('Manage'), controller='ckanext.showcase.controller:ShowcaseController', action='edit', id=pkg.name, class_='btn btn-default', icon='wrench' %}
+              </div>
+            {% endif %}
+          </div>
         </div>
-      {% endif %}
-    {% endblock %}
 
-    {% if pkg.url %}
-      <p><a class="btn btn-primary ckanext-showcase-launch" href="{{ pkg.url }}" target="_blank"><i class="icon-external-link"></i> {{ _('Launch website') }}</a></p>
-    {% endif %}
+          <div>
+          {% if c.showcase_pkgs %}
+            {% set package = c.showcase_pkgs[0] %}
+            {% set translated_title = h.get_translation(package.title) or package.name %}
+            {{ _("Related media for") }}
+            {{ h.link_to(translated_title, h.url_for(controller='package', action='read', id=package.name)) }}
+          {% endif %}
+          </div>
 
-    {% if pkg.showcase_type %}
-      <p>Showcase type: {{ pkg.showcase_type }}</p>
-    {% endif %}
+        <div class="organization-view-content clearfix">
+          <div class="organization-about-wrapper">
 
-  {% endblock %}
+            <div class="organization-about-left">
+              <h2>{{ name }}</h2>
+              {% if pkg.showcase_type %}
+              <span class="label label-default">{{ h.resolve_link_type(pkg.showcase_type) }}</span></p>
+              {% endif %}
 
-  {% block package_tags %}
-    {% snippet "showcase/snippets/tags.html", tags=pkg.tags %}
-  {% endblock %}
+              {% if pkg.showcase_notes_formatted %}
+                <div class="notes embedded-content ckanext-showcase-notes">
+                  {{ pkg.showcase_notes_formatted }}
+                </div>
+              {% endif %}
 
-  {% block package_search_results_list %}
-  {% endblock %}
+              {% block package_tags %}
+                {% snippet "showcase/snippets/tags.html", tags=pkg.tags %}
+              {% endblock %}
 
-{% endblock %}
+              {% if pkg.url %}
+                <p><a class="btn btn-primary ckanext-showcase-launch" href="{{ pkg.url }}" target="_blank"><i class="icon-external-link"></i> {{ _('Launch website') }}</a></p>
+              {% endif %}
 
-{% block secondary_content %}
-  {% block secondary_help_content %}{% endblock %}
+            </div>
 
-  {% block package_info %}
-    {% snippet 'showcase/snippets/showcase_info.html', pkg=pkg, showcase_pkgs=c.showcase_pkgs %}
-  {% endblock %}
+            <div class="organization-about-right">
+              <div class="image">
+                {% if pkg.image_display_url %}
+                <img src="{{ pkg.image_display_url }}" alt="{{ name }}" class="media-image ckanext-showcase-image" width="200" height="125">
+                {% endif %}
+              </div>
+            </div>
 
-  {% block package_social %}
-    {% snippet "snippets/social.html" %}
-  {% endblock %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
 {% endblock %}
