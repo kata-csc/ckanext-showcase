@@ -18,7 +18,10 @@ show_remove    - If True, show the remove button to remove showcase/dataset asso
   <div class="related-content">
   <h3 class="media-heading">
     <a href="{{ h.url_for(controller='ckanext.showcase.controller:ShowcaseController', action='read', id=package.name) }}">{{ package.title }}</a>
+    {% if package.showcase_type %}<span class="label label-default">{{ h.resolve_link_type(package.showcase_type) }}</span>{% endif %}
   </h3>
+
+
   {% if notes %}
     <p class="prose">{{ notes|urlize }}</p>
   {% else %}

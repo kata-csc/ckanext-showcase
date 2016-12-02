@@ -2,28 +2,27 @@
 
 {% set dataset_name = h.get_translation(c.pkg_dict.title) or c.pkg_dict.name %}
 
-{% block subtitle %}{{ _('Showcases') }} - {{ super() }}{% endblock %}
+{% block subtitle %}{{ _('Showcases') }}{% endblock %}
 
 {% block inner_content %}
-  <h2>
-  {% block page_heading %}
-    {{ _('Related Media for') }} <a href="{{ h.url_for(controller='package', action='read', id=c.pkg_dict.id) }}">{{ dataset_name }}</a></h2>
-  {% endblock %}
-  </h2>
-  {% block showcase_list %}
-    {% if c.showcase_list %}
-      <div class="related-item-list">
-      {% snippet "showcase/snippets/showcase_list.html", packages=c.showcase_list, pkg_id=c.pkg_dict.name, show_remove=h.check_access('ckanext_showcase_update', c.pkg_dict) %}
-      </div>
-    {% else %}
-      <p class="empty">{{ _('There are no showcases that feature this dataset') }}</p>
-    {% endif %}
-  {% endblock %}
 
-  {% block showcase_controls %}
-    <div class="showcase-btn-wrapper">
-    {% link_for _('Create a new Showcase'), controller='ckanext.showcase.controller:ShowcaseController', action='new_direct', package_id=c.pkg_dict.id, class_='btn btn-primary' %}
+  <div class='showcase-list-header'>
+    <div class='btn-toolbar pull-right'>
+      <div class='btn-group'>
+        {% link_for _('Add Related Item'), controller='ckanext.showcase.controller:ShowcaseController', action='new_direct', package_id=c.pkg_dict.id, class_='btn btn-primary pull-right' %}
+      </div>
     </div>
-  {% endblock %}
+    <h2>{{ _('Related items for') }} <a href="{{ h.url_for(controller='package', action='read', id=c.pkg_dict.id) }}">{{ dataset_name }}</a></h2>
+  </div>
+
+  <div class="clearfix"></div>
+
+  {% if c.showcase_list %}
+    <div class="related-item-list">
+    {% snippet "showcase/snippets/showcase_list.html", packages=c.showcase_list, pkg_id=c.pkg_dict.name, show_remove=h.check_access('ckanext_showcase_update', c.pkg_dict) %}
+    </div>
+  {% else %}
+    <p class="empty">{{ _('There are no showcases that feature this dataset') }}</p>
+  {% endif %}
 
 {% endblock %}

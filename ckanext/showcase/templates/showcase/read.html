@@ -23,14 +23,14 @@
           </div>
         </div>
 
-          <div>
-          {% if c.showcase_pkgs %}
-            {% set package = c.showcase_pkgs[0] %}
-            {% set translated_title = h.get_translation(package.title) or package.name %}
-            {{ _("Related media for") }}
-            {{ h.link_to(translated_title, h.url_for(controller='package', action='read', id=package.name)) }}
-          {% endif %}
-          </div>
+        <div>
+        {% if c.showcase_pkgs %}
+          {% set package = c.showcase_pkgs[0] %}
+          {% set translated_title = h.get_translation(package.title) or package.name %}
+          {{ _("Related items for") }}
+          {{ h.link_to(translated_title, h.url_for(controller='package', action='read', id=package.name)) }}
+        {% endif %}
+        </div>
 
         <div class="organization-view-content clearfix">
           <div class="organization-about-wrapper">
