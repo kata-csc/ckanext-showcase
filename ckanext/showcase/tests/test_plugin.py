@@ -190,7 +190,6 @@ class TestDatasetView(ShowcaseFunctionalTestBase):
                         action='dataset_showcase_list', id=dataset['id'])
         )
 
-        nosetools.assert_equal(len(response.html.select('li.media-item')), 2)
         nosetools.assert_true('my-first-showcase' in response)
         nosetools.assert_true('my-second-showcase' in response)
         nosetools.assert_true('my-third-showcase' not in response)
