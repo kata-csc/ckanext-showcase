@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-12-13 11:47+0000\n"
+"POT-Creation-Date: 2016-12-13 12:38+0000\n"
 "PO-Revision-Date: 2016-11-14 12:59+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fi <LL@li.org>\n"
@@ -121,9 +121,8 @@ msgid "API"
 msgstr ""
 
 #: ckanext/showcase/controller.py:685
-#, fuzzy
 msgid "Application"
-msgstr "organisaatio"
+msgstr "Sovellus"
 
 #: ckanext/showcase/controller.py:686
 msgid "Idea"
@@ -131,20 +130,19 @@ msgstr ""
 
 #: ckanext/showcase/controller.py:687
 msgid "News Article"
-msgstr ""
+msgstr "Uutisartikkeli"
 
 #: ckanext/showcase/controller.py:688
 msgid "Paper"
-msgstr ""
+msgstr "Tieteellinen julkaisu"
 
 #: ckanext/showcase/controller.py:689
 msgid "Post"
-msgstr ""
+msgstr "Postaus"
 
 #: ckanext/showcase/controller.py:690
-#, fuzzy
 msgid "Visualization"
-msgstr "organisaatio"
+msgstr "Visualisaatio"
 
 #: ckanext/showcase/logic/converters.py:24
 #: ckanext/showcase/logic/validators.py:29
@@ -387,8 +385,8 @@ msgid "Description"
 msgstr "Kuvaus"
 
 #: ckanext/showcase/templates/showcase/new_package_form.html:38
-msgid "eg. Some useful notes about the data"
-msgstr "esim. hyödyllisiä muistiinpanoja datasta"
+msgid "Eg. some useful notes about the related item"
+msgstr "Esim. hyödyllisiä muistiinpanoja aineistoon liittyvästä kohteesta"
 
 #: ckanext/showcase/templates/showcase/new_package_form.html:54
 msgid "External link"
@@ -491,3 +489,4 @@ msgstr[1] "löytyi {number} kokoelmaa"
 #: ckanext/showcase/templates/showcase/snippets/showcase_search_result_text.html:10
 msgid "No showcases found"
 msgstr "Kokolmeia ei löytynyt"
+
