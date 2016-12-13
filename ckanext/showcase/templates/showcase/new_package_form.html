@@ -35,7 +35,7 @@
 
         {% block package_basic_fields_description %}
           <div class="form-row">
-            {{ form.markdown('notes', id='field-notes', label=_('Description'), placeholder=_('eg. Some useful notes about the data'), value=data.notes, error=errors.notes) }}
+            {{ form.markdown('notes', id='field-notes', label=_('Description'), placeholder=_('Eg. some useful notes about the related item'), value=data.notes, error=errors.notes) }}
           </div>
         {% endblock %}
 
