@@ -12,7 +12,8 @@
         {% link_for _('Add Related Item'), controller='ckanext.showcase.controller:ShowcaseController', action='new_direct', package_id=c.pkg_dict.id, class_='btn btn-primary pull-right' %}
       </div>
     </div>
-    <h2>{{ _('Related items for') }} <a href="{{ h.url_for(controller='package', action='read', id=c.pkg_dict.id) }}">{{ dataset_name }}</a></h2>
+    {% set link =  h.link_to(dataset_name, h.url_for(controller='package', action='read', id=c.pkg_dict.id)) %}
+    <h2>{{ _('Related items for {}').format(link) | safe }}</h2>
   </div>
 
   <div class="clearfix"></div>

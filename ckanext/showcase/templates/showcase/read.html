@@ -27,8 +27,8 @@
         {% if c.showcase_pkgs %}
           {% set package = c.showcase_pkgs[0] %}
           {% set translated_title = h.get_translation(package.title) or package.name %}
-          {{ _("Related items for") }}
-          {{ h.link_to(translated_title, h.url_for(controller='package', action='read', id=package.name)) }}
+          {% set link =  h.link_to(translated_title, h.url_for(controller='package', action='read', id=package.name)) %}
+          {{ _("Related items for {}").format(link) | safe }}
         {% endif %}
         </div>
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-showcase 1.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-12-13 12:38+0000\n"
+"POT-Creation-Date: 2016-12-14 08:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -261,12 +261,12 @@ msgstr[1] ""
 msgid "Add Related Item"
 msgstr ""
 
-#: ckanext/showcase/templates/package/dataset_showcase_list.html:15
-#: ckanext/showcase/templates/showcase/read.html:30
-msgid "Related items for"
+#: ckanext/showcase/templates/package/dataset_showcase_list.html:16
+#: ckanext/showcase/templates/showcase/read.html:31
+msgid "Related items for {}"
 msgstr ""
 
-#: ckanext/showcase/templates/package/dataset_showcase_list.html:25
+#: ckanext/showcase/templates/package/dataset_showcase_list.html:26
 msgid "There are no showcases that feature this dataset"
 msgstr ""
 

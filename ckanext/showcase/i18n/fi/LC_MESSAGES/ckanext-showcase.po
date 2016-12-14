@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-12-13 12:38+0000\n"
+"POT-Creation-Date: 2016-12-14 08:52+0000\n"
 "PO-Revision-Date: 2016-11-14 12:59+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fi <LL@li.org>\n"
@@ -270,14 +270,14 @@ msgstr[1] "kokoelmaa"
 
 #: ckanext/showcase/templates/package/dataset_showcase_list.html:12
 msgid "Add Related Item"
-msgstr "Lisää liittyvä kohde"
+msgstr "Lisää uudelleenkäyttö"
 
-#: ckanext/showcase/templates/package/dataset_showcase_list.html:15
-#: ckanext/showcase/templates/showcase/read.html:30
-msgid "Related items for"
-msgstr "Liittyvät kohteet aineistolle"
+#: ckanext/showcase/templates/package/dataset_showcase_list.html:16
+#: ckanext/showcase/templates/showcase/read.html:31
+msgid "Related items for {}"
+msgstr "Aineiston {} uudelleenkäyttö"
 
-#: ckanext/showcase/templates/package/dataset_showcase_list.html:25
+#: ckanext/showcase/templates/package/dataset_showcase_list.html:26
 msgid "There are no showcases that feature this dataset"
 msgstr "Tätä aineistoa ei ole liitetty kokoelmaan"
 
