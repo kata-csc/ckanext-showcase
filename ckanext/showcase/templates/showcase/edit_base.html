@@ -16,8 +16,9 @@
         {% block flash %}
           {{ super() }}
         {% endblock %}
-
+        {% if c.pkg_dict %}
         <h2 class="page-title">{{ c.pkg_dict.title }}</h2>
+        {% endif %}
 
         <div class="organization-view-content clearfix">
 
