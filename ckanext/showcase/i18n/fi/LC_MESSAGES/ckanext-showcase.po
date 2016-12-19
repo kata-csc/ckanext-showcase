@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-12-14 08:52+0000\n"
+"POT-Creation-Date: 2016-12-19 08:17+0000\n"
 "PO-Revision-Date: 2016-11-14 12:59+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fi <LL@li.org>\n"
@@ -159,7 +159,6 @@ msgid "Datasets"
 msgstr "Aineistot"
 
 #: ckanext/showcase/templates/header.html:8
-#: ckanext/showcase/templates/package/dataset_showcase_list.html:5
 #: ckanext/showcase/templates/showcase/edit_base.html:8
 #: ckanext/showcase/templates/showcase/read.html:6
 #: ckanext/showcase/templates/showcase/search.html:4
@@ -268,6 +267,10 @@ msgid_plural "showcases"
 msgstr[0] "kokoelma"
 msgstr[1] "kokoelmaa"
 
+#: ckanext/showcase/templates/package/dataset_showcase_list.html:5
+msgid "Related items"
+msgstr "Uudelleenkäytöt"
+
 #: ckanext/showcase/templates/package/dataset_showcase_list.html:12
 msgid "Add Related Item"
 msgstr "Lisää uudelleenkäyttö"
@@ -278,8 +281,8 @@ msgid "Related items for {}"
 msgstr "Aineiston {} uudelleenkäyttö"
 
 #: ckanext/showcase/templates/package/dataset_showcase_list.html:26
-msgid "There are no showcases that feature this dataset"
-msgstr "Tätä aineistoa ei ole liitetty kokoelmaan"
+msgid "There are no related items that feature this dataset"
+msgstr "Tällä aineistolla ei vielä ole uudelleenkäyttöjä"
 
 #: ckanext/showcase/templates/showcase/add_datasets.html:3
 msgid "Showcases - Add datasets"
@@ -336,8 +339,8 @@ msgid "Confirm Delete"
 msgstr "Varmista poistaminen"
 
 #: ckanext/showcase/templates/showcase/confirm_delete.html:11
-msgid "Are you sure you want to delete showcase - {showcase_name}?"
-msgstr "Oletko varma, että haluat poistaa kokoelman - {showcase_name}?"
+msgid "Are you sure you want to delete related item - {showcase_name}?"
+msgstr "Oletko varma, että haluat poistaa liittyvän kohteen - {showcase_name}?"
 
 #: ckanext/showcase/templates/showcase/manage_datasets.html:3
 msgid "Showcases - Manage datasets"
@@ -356,7 +359,6 @@ msgid "This showcase has no datasets associated to it"
 msgstr "Tällä kokoelmalla ei ole siihen liittyviä aineistoja"
 
 #: ckanext/showcase/templates/showcase/new.html:3
-#: ckanext/showcase/templates/showcase/new_package_form.html:70
 msgid "Create Showcase"
 msgstr "Luo kokoelma"
 
@@ -401,12 +403,16 @@ msgid "Type"
 msgstr "Tyyppi"
 
 #: ckanext/showcase/templates/showcase/new_package_form.html:65
-msgid "Are you sure you want to delete this showcase?"
-msgstr "Oletko varma, että haluat poistaa tämän kokoelman?"
+msgid "Are you sure you want to delete this related item?"
+msgstr "Oletko varma, että haluat poistaa tämän liittyvän kohteen?"
 
 #: ckanext/showcase/templates/showcase/new_package_form.html:66
 msgid "Delete"
 msgstr "Poista"
+
+#: ckanext/showcase/templates/showcase/new_package_form.html:70
+msgid "Create"
+msgstr "Luo"
 
 #: ckanext/showcase/templates/showcase/new_package_form.html:70
 msgid "Update"

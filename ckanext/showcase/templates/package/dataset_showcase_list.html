@@ -2,17 +2,17 @@
 
 {% set dataset_name = h.get_translation(c.pkg_dict.title) or c.pkg_dict.name %}
 
-{% block subtitle %}{{ _('Showcases') }}{% endblock %}
+{% block subtitle %}{{ _('Related items') }}{% endblock %}
 
 {% block inner_content %}
 
   <div class='showcase-list-header'>
     <div class='btn-toolbar pull-right'>
       <div class='btn-group'>
-        {% link_for _('Add Related Item'), controller='ckanext.showcase.controller:ShowcaseController', action='new_direct', package_id=c.pkg_dict.id, class_='btn btn-primary pull-right' %}
+        {% link_for _('Add Related Item'), controller='ckanext.showcase.controller:ShowcaseController', action='new_direct', package_id=c.pkg_dict.name, class_='btn btn-primary pull-right' %}
       </div>
     </div>
-    {% set link =  h.link_to(dataset_name, h.url_for(controller='package', action='read', id=c.pkg_dict.id)) %}
+    {% set link =  h.link_to(dataset_name, h.url_for(controller='package', action='read', id=c.pkg_dict.name)) %}
     <h2>{{ _('Related items for {}').format(link) | safe }}</h2>
   </div>
 
@@ -23,7 +23,7 @@
     {% snippet "showcase/snippets/showcase_list.html", packages=c.showcase_list, pkg_id=c.pkg_dict.name, show_remove=h.check_access('ckanext_showcase_update', c.pkg_dict) %}
     </div>
   {% else %}
-    <p class="empty">{{ _('There are no showcases that feature this dataset') }}</p>
+    <p class="empty">{{ _('There are no related items that feature this dataset') }}</p>
   {% endif %}
 
 {% endblock %}

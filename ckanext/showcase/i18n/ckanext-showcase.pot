@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-showcase 1.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-12-14 08:52+0000\n"
+"POT-Creation-Date: 2016-12-19 08:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -157,7 +157,6 @@ msgid "Datasets"
 msgstr ""
 
 #: ckanext/showcase/templates/header.html:8
-#: ckanext/showcase/templates/package/dataset_showcase_list.html:5
 #: ckanext/showcase/templates/showcase/edit_base.html:8
 #: ckanext/showcase/templates/showcase/read.html:6
 #: ckanext/showcase/templates/showcase/search.html:4
@@ -257,6 +256,10 @@ msgid_plural "showcases"
 msgstr[0] ""
 msgstr[1] ""
 
+#: ckanext/showcase/templates/package/dataset_showcase_list.html:5
+msgid "Related items"
+msgstr ""
+
 #: ckanext/showcase/templates/package/dataset_showcase_list.html:12
 msgid "Add Related Item"
 msgstr ""
@@ -267,7 +270,7 @@ msgid "Related items for {}"
 msgstr ""
 
 #: ckanext/showcase/templates/package/dataset_showcase_list.html:26
-msgid "There are no showcases that feature this dataset"
+msgid "There are no related items that feature this dataset"
 msgstr ""
 
 #: ckanext/showcase/templates/showcase/add_datasets.html:3
@@ -325,7 +328,7 @@ msgid "Confirm Delete"
 msgstr ""
 
 #: ckanext/showcase/templates/showcase/confirm_delete.html:11
-msgid "Are you sure you want to delete showcase - {showcase_name}?"
+msgid "Are you sure you want to delete related item - {showcase_name}?"
 msgstr ""
 
 #: ckanext/showcase/templates/showcase/manage_datasets.html:3
@@ -345,7 +348,6 @@ msgid "This showcase has no datasets associated to it"
 msgstr ""
 
 #: ckanext/showcase/templates/showcase/new.html:3
-#: ckanext/showcase/templates/showcase/new_package_form.html:70
 msgid "Create Showcase"
 msgstr ""
 
@@ -390,11 +392,15 @@ msgid "Type"
 msgstr ""
 
 #: ckanext/showcase/templates/showcase/new_package_form.html:65
-msgid "Are you sure you want to delete this showcase?"
+msgid "Are you sure you want to delete this related item?"
 msgstr ""
 
 #: ckanext/showcase/templates/showcase/new_package_form.html:66
 msgid "Delete"
+msgstr ""
+
+#: ckanext/showcase/templates/showcase/new_package_form.html:70
+msgid "Create"
 msgstr ""
 
 #: ckanext/showcase/templates/showcase/new_package_form.html:70
